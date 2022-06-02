@@ -162,6 +162,8 @@ export default{
 <style>
 body{
   background-image: url(https://cdn1.vectorstock.com/i/1000x1000/17/50/abstract-background-calculator-vector-11601750.jpg);
+  overflow-y: hidden;
+  overflow-x: hidden;
 }
 #calculator {
   padding: 20px;
