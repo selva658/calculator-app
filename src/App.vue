@@ -17,7 +17,10 @@
     <div class="button" @click='divide'>/</div>
     <div class="button" @click="modulo">%</div>
     <div class="button" @click="total" :disabled="!equalcheck" >=</div>
+     <div class="button2" @click="clear"></div>
     <div class="button1" @click="clear">C</div>
+    <div class="button" @click="undo">↩</div>
+     <div class="button2" @click="clear"></div>
   </div>
 </div>
 
@@ -39,7 +42,7 @@ export default{
     this.userenter+=x
   },
   check(s){
-    if(this.userenter[this.userenter.length-1]=='+' || this.userenter[this.userenter.length-1]=='-' || this.userenter[this.userenter.length-1]=='*' || this.userenter[this.userenter.length-1]=='/' || this.userenter[this.userenter.length-1]=='%') {
+    if(this.userenter[this.userenter.length-1]=='+' || this.userenter[this.userenter.length-1]=='-' || this.userenter[this.userenter.length-1]=='*' || this.userenter[this.userenter.length-1]=='/' || this.userenter[this.userenter.length-1]=='%' || this.userenter[this.userenter.length-1]=='√') {
      //
      this.equalcheck=false
     }
@@ -63,17 +66,22 @@ export default{
   modulo(){
     this.check('%')
   },
+  square(){
+    this.check('√')
+  },
   clear(){
     this.userenter=''
   },
-  
+  undo(){
+     this.userenter=this.userenter.substr(0, this.userenter.length - 1)
+  },  
   total(){
     let operators=[]
     let fianl=[]
     let k=0
 
     //spliting all entered values based on '+,-,*,%,/'
-    let all=(this.userenter.split(/[+-/%*]+/))
+    let all=(this.userenter.split(/[+-/%*√]+/))
 
     //storing operators'+,-,*,%,/' in []
     for(let i=0;i<this.userenter.length;i++){
@@ -91,6 +99,9 @@ export default{
       }
       else if(this.userenter[i]=='%'){
         operators.push('%')
+      }
+      else if(this.userenter[i]=='√'){
+        operators.push('√')
       }
     }
     
@@ -131,6 +142,9 @@ export default{
      else if(fianl[m]==='%'){
       this.output%=Number(fianl[m+1])
     }
+    else if(fianl[m]==='√'){
+      this.output**=Number(fianl[m+1])
+    }
    
    }
     this.userenter=this.output
@@ -146,11 +160,18 @@ export default{
 </script>
 
 <style>
+body{
+  background-image: url(https://cdn1.vectorstock.com/i/1000x1000/17/50/abstract-background-calculator-vector-11601750.jpg);
+}
 #calculator {
   padding: 20px;
   width: 300px;
-  border:1px solid red;
+  border:1px solid rgb(117, 202, 191);
   margin: auto;
+  border-radius: 10px;
+  margin-top:7%;
+  background-color: white;
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
 }
 
 #display {
@@ -163,6 +184,7 @@ export default{
   height: 30px;
   text-align: right;
   border-radius:5px ;
+  border:1px solid rgb(117, 202, 191)
 }
 
 input:focus{
@@ -182,7 +204,7 @@ h1{
 
 #buttons .button, .button1 {
   padding: 10px;
-  border: 1px solid black;
+  border: 1px solid rgb(117, 202, 191);
   border-radius: 5px;
   text-align: center;
   cursor: pointer;
@@ -195,6 +217,10 @@ h1{
 
 #buttons .button:hover {
   background-color: lightblue;
+}
+
+.button2{
+  border:none
 }
 
 </style>
