@@ -19,10 +19,12 @@
     <div class="button" @click="total" :disabled="!equalcheck" >=</div>
      <div class="button2" @click="clear"></div>
     <div class="button1" @click="clear">C</div>
+     <div class="button1" @click="dot">.</div>
     <div class="button" @click="undo">↩</div>
      <div class="button2" @click="clear"></div>
   </div>
 </div>
+ 
 
 </template>
 
@@ -34,6 +36,8 @@ export default{
     numbers: [...Array(10).keys()],
     userenter:'',
     output:0,
+    dotindex:0,
+    fordot:'',
     equalcheck:false
     }
   },
@@ -44,11 +48,11 @@ export default{
   check(s){
     if(this.userenter[this.userenter.length-1]=='+' || this.userenter[this.userenter.length-1]=='-' || this.userenter[this.userenter.length-1]=='*' || this.userenter[this.userenter.length-1]=='/' || this.userenter[this.userenter.length-1]=='%' || this.userenter[this.userenter.length-1]=='√') {
      //
-     this.equalcheck=false
+    //  this.equalcheck=false
     }
     else{
        this.userenter+=s
-       this.equalcheck=true
+      // this.equalcheck=true
     }
   },
   add(){
@@ -66,11 +70,11 @@ export default{
   modulo(){
     this.check('%')
   },
-  square(){
-    this.check('√')
-  },
   clear(){
     this.userenter=''
+  },
+  dot(){
+     this.userenter+='.'
   },
   undo(){
      this.userenter=this.userenter.substr(0, this.userenter.length - 1)
@@ -79,10 +83,12 @@ export default{
     let operators=[]
     let fianl=[]
     let k=0
+    this.fordot+=this.userenter[this.dotindex]
 
     //spliting all entered values based on '+,-,*,%,/'
-    let all=(this.userenter.split(/[+-/%*√]+/))
 
+    let all=(this.userenter.split(/[\\+\-/%\\*]/))
+   
     //storing operators'+,-,*,%,/' in []
     for(let i=0;i<this.userenter.length;i++){
       if(this.userenter[i]=='+'){
@@ -99,9 +105,6 @@ export default{
       }
       else if(this.userenter[i]=='%'){
         operators.push('%')
-      }
-      else if(this.userenter[i]=='√'){
-        operators.push('√')
       }
     }
     
@@ -142,10 +145,6 @@ export default{
      else if(fianl[m]==='%'){
       this.output%=Number(fianl[m+1])
     }
-    else if(fianl[m]==='√'){
-      this.output**=Number(fianl[m+1])
-    }
-   
    }
     this.userenter=this.output
     this.output=0
