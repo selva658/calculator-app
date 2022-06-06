@@ -17,7 +17,7 @@
     <div class="button" @click='divide'>/</div>
     <div class="button" @click="modulo">%</div>
     <div class="button" @click="total" :disabled="!equalcheck" >=</div>
-     <div class="button2" @click="clear"></div>
+     <div class="button" @click="clear"></div>
     <div class="button1" @click="clear">C</div>
      <div class="button1" @click="dot">.</div>
     <div class="button" @click="undo">↩</div>
